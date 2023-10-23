@@ -1,7 +1,10 @@
 <?php
     // This code runs everything the page loads
-    require_once __DIR__ . '/controllers/updateController.php';
+    include __DIR__ . '/models/model_team.php';
+
 ?>
+
+
 
 <html lang="en">
 <head>
@@ -16,7 +19,7 @@
     
 <div class="container">
   <p></p>
-    <form class="form-horizontal" action="updateTeam.php" method="post">
+    <form class="form-horizontal" action="updateteam.php" method="post">
 
         <!-- Display header for form -->
         <div class="panel panel-primary">
@@ -56,7 +59,7 @@
         <!-- ---------------------- -->
     </form>
   
-  <div class="col-sm-offset-2 col-sm-10"><a href="./viewTeams.php">View Teams</a></div>
+  <div class="col-sm-offset-2 col-sm-10"><a href="./viewteams.php">View Teams</a></div>
 </div>
 </div>
 

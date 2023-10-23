@@ -1,6 +1,5 @@
 <?php   
     require_once __DIR__ . '/models/model_team.php';
-    $teams = getTeams();
 ?>
 
 
@@ -22,7 +21,7 @@
 
         <!-- Link to add a new team -->
         <!-- We $_GET the update page with action "Add" -->
-        <a href="updateTeam.php?action=Add">Add New Team</a>      
+        <a href="updateteam.php?action=Add">Add New Team</a>      
         <!-- ---------------------- -->
 
          <!-- Begin table of teams -->
@@ -37,12 +36,18 @@
         <tbody>
 
         <!-- Build each row here -->
-        <?php foreach ($teams as $row): ?>
+        <?php foreach ($teamListing as $row): ?>
             <tr>
-                <td><?= $row['teamName']; ?></td> 
+                <td>
+                    <form action="viewteams.php" method="post">
+                        <input type="hidden" name="teamId" value="<?= $row['id']; ?>" />
+                        <button class="btn glyphicon glyphicon-trash" type="submit"></button>
+                        <?= $row['teamName']; ?>
+                    </form>   
+                </td>
                 <td><?= $row['division']; ?></td> 
                 <!-- We $_GET the update page with action "Update" -->
-                
+                <td><a href="updateteam.php?action=Update&teamId=<?= $row['id'] ?>">Update</a></td> 
             </tr>
         <?php endforeach; ?>
         <!-- End table rows -->
