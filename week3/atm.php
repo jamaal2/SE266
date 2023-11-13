@@ -76,9 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
     <div class="message">
         <?php
-        if (!empty($successMessage)) {
-            echo '<div class="success">' . $successMessage . '</div>';
-        }
         if (!empty($errorMessage)) {
             echo '<div class="error">' . $errorMessage . '</div>';
         }
