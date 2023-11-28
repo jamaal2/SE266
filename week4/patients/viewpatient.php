@@ -1,5 +1,5 @@
 <?php
-include('modelpatient.php');
+include('/models/modelpatient.php');
 
 $patients = getAllPatients();
 foreach ($patients as $patient) {

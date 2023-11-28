@@ -36,7 +36,7 @@
         <tbody>
 
         <!-- Build each row here -->
-        <?php foreach ($teamListing as $row): ?>
+        <?php foreach ($teamName as $row): ?>
             <tr>
                 <td>
                     <form action="viewteams.php" method="post">

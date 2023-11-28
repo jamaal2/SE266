@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Add Patient</h1>
-    <form action="modelpatient.php" method="post">
+    <form action="/models/modelpatient.php" method="post">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" required><br><br>
 
@@ -14,7 +14,7 @@
         <input type="text" id="lastName" name="lastName" required><br><br>
 
         <label for="married">Married:</label>
-        <input type="number" id="married" name="married" required><br><br>
+        <input type="radio" id="married" name="married" required><br><br>
 
         <label for="birthdate">Birthdate:</label>
         <input type="date" id="birthdate" name="birthdate" required><br><br>
