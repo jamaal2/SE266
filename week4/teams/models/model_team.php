@@ -12,7 +12,7 @@ include (__DIR__ . '/db.php');
         $results = [];
 
         //prepare our SQL statment
-        $stmt = $db->prepare("SELECT id,teamName, division FROM  teams ORDER BY teamName"); 
+        $stmt = $db->prepare("SELECT id, teamName, division FROM  teams ORDER BY teamName"); 
         
         //if our SQL statement returns results, populate our results array
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
