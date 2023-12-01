@@ -1,10 +1,10 @@
 <?php
    
-    require_once 'models/model_patient.php';
+   include __DIR__ . '/models/model_patient.php';
 
-    $patients = new Patients();
+    //$patients = new Patients();
 
-    $patients = $patient->getAllPatients();
+    $patients = getPatients();
 ?>
 
 <table>
