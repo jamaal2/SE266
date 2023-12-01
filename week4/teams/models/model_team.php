@@ -27,7 +27,7 @@ include (__DIR__ . '/db.php');
     function addTeam ($teamName, $division) {
         //grab $db object - 
         //needs global scope since object is coming from outside the function
-        global $db;
+                        global $db;
 
         //initialize return dataset
         $result = "";
