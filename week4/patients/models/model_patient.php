@@ -1,73 +1,67 @@
 <?php
 include (__DIR__ . '/db.php');
 
-// class Patients {
-    
-//     private $conn;
-
-//     public function __construct() {
-//         // Create a database connection
-//         $db = new Database();
-//         $this->conn = $db->getConnection();
-//     }
-
-//     public function getAllPatients() {
-//         // Retrieve all patients from the database
-//         $stmt = $this->conn->prepare("SELECT * FROM patients");
-//         $stmt->execute();
-//         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-//     }
-
-//     public function addPatient($firstName, $lastName, $married, $birthDate) {
-//         // Add a new patient to the database
-//         $stmt = $this->conn->prepare("INSERT INTO patients (patientFirstName, patientLastName, patientMarried, patientBirthDate) VALUES (:firstName, :lastName, :married, :birthDate)");
-//         $stmt->bindParam(':firstName', $firstName);
-//         $stmt->bindParam(':lastName', $lastName);
-//         $stmt->bindParam(':married', $married);
-//         $stmt->bindParam(':birthDate', $birthDate);
-//         return $stmt->execute();
-//     }
-
-    
-// }
-
-function getPatients () {
+function getPatients() {
     global $db;
-    
     $results = [];
-
-    $stmt = $db->prepare("SELECT id,patientLastName, patientFirstName, patientMarried, patientBirthDate FROM  patients ORDER BY patientLastName, patientFirstName"); 
-    
-    if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
-         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-             
-     }
-     
-     return ($results);
+    $stmt = $db->prepare("SELECT id, patientFirstName, patientLastName, patientMarried, patientBirthDate FROM patients ORDER BY patientLastName, patientFirstName");
+    if ($stmt->execute() && $stmt->rowCount() > 0) {
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    return $results;
 }
 
+function getPatientByID($id) {
+    global $db;
+    $stmt = $db->prepare("SELECT id, patientFirstName, patientLastName, patientMarried, patientBirthDate FROM patients WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    if ($stmt->execute() && $stmt->rowCount() > 0) {
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    return null;
+}
 
-function addPatient ($first, $last, $bdate, $married) {
+function addPatient($first, $last, $married, $bdate) {
     global $db;
     $result = "";
-    $sql = "INSERT INTO patients set patientFirstName = :firstName, patientLastName = :lastName, patientBirthDate = :bdate, patientMarried=:married";
+    $sql = "INSERT INTO patients (patientFirstName, patientLastName, patientMarried, patientBirthDate) VALUES (:firstName, :lastName, :married, :bdate)";
     $stmt = $db->prepare($sql);
 
-    $binds = array(
-        ":firstName" => $first,
-        ":lastName" => $last,
-        ":bdate" => $bdate,
-        ":married" => $married
-        
-        
-    );
-    
-    
-    if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+    $stmt->bindParam(':firstName', $first);
+    $stmt->bindParam(':lastName', $last);
+    $stmt->bindParam(':married', $married);
+    $stmt->bindParam(':bdate', $bdate);
+
+    if ($stmt->execute()) {
         $result = 'Data Added';
     }
-    
-    return ($result);
+    return $result;
 }
 
- ?>
+function updatePatient($id, $first, $last, $married, $bdate) {
+    global $db;
+    $result = "";
+    $sql = "UPDATE patients SET patientFirstName = :firstName, patientLastName = :lastName, patientMarried = :married, patientBirthDate = :bdate WHERE id = :id";
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':firstName', $first);
+    $stmt->bindParam(':lastName', $last);
+    $stmt->bindParam(':married', $married);
+    $stmt->bindParam(':bdate', $bdate);
+
+    if ($stmt->execute()) {
+        $result = 'Data Updated';
+    }
+    return $result;
+}
+
+function deletePatient($id) {
+    global $db;
+    $sql = "DELETE FROM patients WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+}
+    
+?>
